@@ -1,1 +1,43 @@
 <p>polat</p>
+from tkinter import Tk, Entry, Button, Label, StringVar
+
+def check_password():
+    entered_password = entry_password.get()
+    if entered_password == "sifrekod":
+        result_label.config(text="Giriş Başarılı", fg="green")
+    else:
+        result_label.config(text="Hatalı Parola", fg="red")
+
+def on_enter_pressed(event):
+    check_password()
+
+def center_window(window, width, height):
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+
+    x = (screen_width - width) // 2
+    y = (screen_height - height) // 2
+
+    window.geometry(f"{width}x{height}+{x}+{y}")
+
+bk = Tk()
+bk.title("Güvenlik")
+bk.geometry("600x400")
+bk.maxsize(width=600, height=400)
+
+entry_password = Entry(bk, show="*", font=("Verdana", 23))
+entry_password.place(x=100, y=150)
+
+button_check = Button(bk, text="Parolayı Kontrol Et", command=check_password, width=20, height=2)
+button_check.place(x=200, y=220)
+
+result_label = Label(bk, text="", font=("Verdana", 14))
+result_label.place(x=120, y=290)
+
+# Return tuşuna basıldığında on_enter_pressed fonksiyonunu çağır
+entry_password.bind("<Return>", on_enter_pressed)
+
+# Pencereyi ekranın ortasına yerleştir
+center_window(bk, 600, 400)
+
+bk.mainloop()
